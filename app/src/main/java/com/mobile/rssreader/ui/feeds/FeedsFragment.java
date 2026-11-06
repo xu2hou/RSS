@@ -1,5 +1,6 @@
 package com.mobile.rssreader.ui.feeds;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,8 +50,10 @@ public class FeedsFragment extends Fragment implements FeedAdapter.Listener {
         binding.recycler.setAdapter(adapter);
 
         binding.swipeRefresh.setOnRefreshListener(() -> viewModel.refreshAll());
-        binding.fabAdd.setOnClickListener(v ->
-                Toast.makeText(requireContext(), R.string.action_add_feed_todo, Toast.LENGTH_SHORT).show());
+        binding.fabAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), AddFeedActivity.class);
+            startActivity(intent);
+        });
         binding.stateView.setOnRetryClickListener(() -> viewModel.refreshAll());
 
         observe();
