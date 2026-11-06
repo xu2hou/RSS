@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.mobile.rssreader.R;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        applyWindowInsets();
 
         binding.bottomNav.setOnItemSelectedListener(item -> {
             showTab(item.getItemId());
@@ -34,6 +38,18 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             binding.bottomNav.setSelectedItemId(R.id.nav_feeds);
         }
+    }
+
+    /**
+     * targetSdk 35 在 Android 15+ 强制 edge-to-edge，页面内容会顶到状态栏与手势条下面。
+     * 这里按系统栏 insets 给根布局加内边距，保证列表不被状态栏遮挡。
+     */
+    private void applyWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (view, insets) -> {
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            view.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            return insets;
+        });
     }
 
     private void showTab(int itemId) {
