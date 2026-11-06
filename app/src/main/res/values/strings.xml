@@ -13,4 +13,14 @@
     <string name="state_error">出错了</string>
     <string name="action_retry">重试</string>
     <string name="action_add_feed">添加订阅</string>
+
+    <!-- 订阅列表 -->
+    <string name="feeds_empty">还没有订阅源，点击右下角 + 添加一个</string>
+    <string name="feed_subtitle_format">%1$s · %2$s</string>
+    <string name="feed_never_fetched">尚未更新</string>
+    <string name="feed_delete_title">取消订阅</string>
+    <string name="feed_delete_message">确定取消订阅「%1$s」吗？该源下已缓存的文章会一并删除。</string>
+    <string name="action_delete">取消订阅</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_add_feed_todo">添加订阅页正在实现（S03）</string>
 </resources>
