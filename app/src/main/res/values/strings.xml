@@ -23,4 +23,14 @@
     <string name="action_delete">取消订阅</string>
     <string name="action_cancel">取消</string>
     <string name="action_add_feed_todo">添加订阅页正在实现（S03）</string>
+
+    <!-- 添加订阅 -->
+    <string name="add_feed_title">添加订阅</string>
+    <string name="add_feed_hint">订阅地址（RSS / Atom）</string>
+    <string name="add_feed_action">添加订阅</string>
+    <string name="add_feed_loading">正在抓取并解析…</string>
+    <string name="add_feed_suggestions">推荐源</string>
+    <string name="add_feed_suggestions_hint">点击自动填入地址，再点「添加订阅」</string>
+    <string name="add_feed_url_empty">请先填写订阅地址</string>
+    <string name="add_feed_success">添加成功：%1$s</string>
 </resources>
