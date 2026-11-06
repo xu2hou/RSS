@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">阅流 RSS</string>
+
+    <!-- 底部导航 -->
+    <string name="nav_feeds">订阅</string>
+    <string name="nav_articles">文章</string>
+    <string name="nav_settings">设置</string>
+
+    <!-- 通用状态 -->
+    <string name="state_loading">正在加载…</string>
+    <string name="state_empty">暂无内容</string>
+    <string name="state_error">出错了</string>
+    <string name="action_retry">重试</string>
+    <string name="action_add_feed">添加订阅</string>
+</resources>
