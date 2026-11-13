@@ -49,6 +49,16 @@ public final class RssParser {
             throws org.xmlpull.v1.XmlPullParserException, java.io.IOException {
         XmlPullParser parser = Xml.newPullParser();
         parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+        return parse(parser, inputStream);
+    }
+
+    /**
+     * 解析核心：由调用方提供 {@link XmlPullParser} 实现。
+     * 这样 JVM 单元测试可以注入 kxml2 的解析器（Android 的 {@code android.util.Xml}
+     * 在普通 JVM 单测里不可用），生产代码仍走系统实现。
+     */
+    static ParsedFeed parse(XmlPullParser parser, InputStream inputStream)
+            throws org.xmlpull.v1.XmlPullParserException, java.io.IOException {
         // 第二参数传 null：由解析器按 BOM / <?xml encoding?> 自行判定编码（UTF-8 / GBK 都能吃）
         parser.setInput(inputStream, null);
 
