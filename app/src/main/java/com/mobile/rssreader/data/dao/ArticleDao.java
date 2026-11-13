@@ -57,6 +57,12 @@ public interface ArticleDao {
     @Query("DELETE FROM articles WHERE id = :id")
     void deleteById(long id);
 
+    @Query("SELECT * FROM articles WHERE link = :link LIMIT 1")
+    Article findByLink(String link);
+
+    @Query("UPDATE articles SET read = :read, starred = :starred WHERE id = :id")
+    void updateStates(long id, boolean read, boolean starred);
+
     @Query("SELECT COUNT(*) FROM articles")
     int count();
 }
