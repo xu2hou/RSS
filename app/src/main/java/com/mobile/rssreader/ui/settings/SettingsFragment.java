@@ -1,6 +1,7 @@
 package com.mobile.rssreader.ui.settings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.mobile.rssreader.R;
 import com.mobile.rssreader.data.prefs.SettingsPreferences;
 import com.mobile.rssreader.data.repo.FeedRepository;
 import com.mobile.rssreader.databinding.FragmentSettingsBinding;
+import com.mobile.rssreader.ui.backup.BackupActivity;
 import com.mobile.rssreader.notify.NotificationHelper;
 import com.mobile.rssreader.util.Callback;
 import com.mobile.rssreader.work.RefreshScheduler;
@@ -85,7 +87,7 @@ public class SettingsFragment extends Fragment {
                 permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS));
 
         binding.btnOpenBackup.setOnClickListener(v ->
-                Toast.makeText(context, "备份与恢复模块建设中（S13）", Toast.LENGTH_SHORT).show());
+                startActivity(new Intent(requireContext(), BackupActivity.class)));
 
         renderNotifyState();
         renderWorkState();

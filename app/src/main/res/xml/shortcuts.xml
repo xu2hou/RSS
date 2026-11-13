@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 长按桌面图标直接进伴生模块（P5/P6 类入口能力） -->
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_nav_feed"
+        android:shortcutId="shortcut_backup"
+        android:shortcutLongLabel="@string/backup_title"
+        android:shortcutShortLabel="@string/backup_title">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.mobile.rssreader.ui.backup.BackupActivity"
+            android:targetPackage="com.mobile.rssreader" />
+    </shortcut>
+
+</shortcuts>
