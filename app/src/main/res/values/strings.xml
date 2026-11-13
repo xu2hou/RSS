@@ -51,4 +51,30 @@
     <string name="detail_share_chooser">分享文章</string>
     <string name="detail_open_failed">没有可用的浏览器</string>
     <string name="action_starred">取消收藏</string>
+
+    <!-- 通知 -->
+    <string name="notify_channel_name">新文章提醒</string>
+    <string name="notify_channel_desc">订阅源出现新文章时通知</string>
+    <string name="notify_title">有新的文章</string>
+    <string name="notify_text_format">后台刷新发现 %1$d 篇新文章</string>
+
+    <!-- 设置页 -->
+    <string name="settings_section_refresh">后台刷新</string>
+    <string name="settings_auto_refresh">自动刷新订阅源</string>
+    <string name="settings_auto_refresh_hint">每 6 小时在联网状态下自动抓取一次，由 WorkManager 调度</string>
+    <string name="settings_refresh_now">立即刷新一次</string>
+    <string name="settings_section_notify">通知</string>
+    <string name="settings_notify_switch">新文章提醒</string>
+    <string name="settings_notify_on">通知权限已授予，发现新文章时会提醒</string>
+    <string name="settings_notify_off">通知已被系统关闭：刷新与阅读不受影响，只是不再提醒</string>
+    <string name="settings_notify_denied">已拒绝通知权限。功能仍可正常使用，需要提醒时点下方按钮重新授权</string>
+    <string name="settings_grant_notify">开启通知权限</string>
+    <string name="settings_section_backup">伴生模块</string>
+    <string name="settings_open_backup">备份与恢复</string>
+    <string name="settings_backup_hint">独立可启动的伴生模块，也可以直接从桌面图标进入</string>
+    <string name="settings_section_about">关于</string>
+    <string name="settings_about_text">阅流 RSS · 本地优先的 RSS 阅读器\nRSS 2.0 / Atom 双格式解析 · Room 离线缓存 · 推荐排序</string>
+    <string name="settings_refreshing">正在刷新…</string>
+    <string name="settings_work_not_enqueued">后台任务：未登记（开关打开后自动登记）</string>
+    <string name="settings_work_state_format">后台任务状态：%1$s（周期 %2$d 小时）</string>
 </resources>
