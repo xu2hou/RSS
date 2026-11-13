@@ -33,4 +33,14 @@
     <string name="add_feed_suggestions_hint">点击自动填入地址，再点「添加订阅」</string>
     <string name="add_feed_url_empty">请先填写订阅地址</string>
     <string name="add_feed_success">添加成功：%1$s</string>
+
+    <!-- 文章列表 -->
+    <string name="tab_recommended">推荐</string>
+    <string name="tab_unread">未读</string>
+    <string name="tab_starred">收藏</string>
+    <string name="articles_empty_all">暂无文章，先在「订阅」里添加一个源</string>
+    <string name="articles_empty_unread">没有未读文章，去「推荐」看看</string>
+    <string name="articles_empty_starred">还没有收藏，点文章右侧星标收藏</string>
+    <string name="action_star">收藏</string>
+    <string name="article_meta_format">%1$s · %2$s</string>
 </resources>
