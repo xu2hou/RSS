@@ -10,6 +10,7 @@ import com.mobile.rssreader.data.dao.FeedDao;
 import com.mobile.rssreader.data.entity.Article;
 import com.mobile.rssreader.data.entity.Feed;
 import com.mobile.rssreader.data.entity.FeedWithUnread;
+import com.mobile.rssreader.data.net.NetworkErrorMapper;
 import com.mobile.rssreader.data.net.RssFetcher;
 import com.mobile.rssreader.data.net.RssParser;
 import com.mobile.rssreader.logic.FeedHealth;
@@ -159,6 +160,7 @@ public final class FeedRepository {
 
     /**
      * 后台刷新全部源（尊重健康度退避）。
+     * 全部失败时 summary.firstError 会带上第一个源的可读错误，供界面展示错误态。
      */
     public void refreshAll(Callback<RefreshSummary> callback) {
         AppExecutors.get().networkIO().execute(() -> {
@@ -188,6 +190,9 @@ public final class FeedRepository {
                     summary.newArticles += added[0];
                 } catch (Exception e) {
                     summary.failed++;
+                    if (summary.firstError == null) {
+                        summary.firstError = feed.title + "：" + NetworkErrorMapper.toUserMessage(e);
+                    }
                     feedDao.markFetchFailed(feed.id);
                 }
             }
@@ -217,11 +222,7 @@ public final class FeedRepository {
     }
 
     private static String describeError(Exception e) {
-        String message = e.getMessage();
-        if (message == null || message.isEmpty()) {
-            return "抓取失败，请检查网络或订阅地址";
-        }
-        return message;
+        return NetworkErrorMapper.toUserMessage(e);
     }
 
     /** 一轮刷新的统计结果 */
@@ -230,9 +231,19 @@ public final class FeedRepository {
         public int failed;
         public int skipped;
         public int newArticles;
+        /** 第一个失败的源的可读错误，用于错误态展示 */
+        public String firstError;
+
+        /** 有源参与、但一个都没成功 —— 界面应展示错误态而不是「成功 0 个」 */
+        public boolean allFailed() {
+            return success == 0 && failed > 0;
+        }
 
         public String toMessage() {
             StringBuilder sb = new StringBuilder();
+            if (success == 0 && failed == 0 && skipped == 0) {
+                return "还没有可刷新的订阅源";
+            }
             sb.append("刷新完成：成功 ").append(success).append(" 个");
             if (newArticles > 0) {
                 sb.append("，新增 ").append(newArticles).append(" 篇");
@@ -244,6 +255,14 @@ public final class FeedRepository {
                 sb.append("，跳过 ").append(skipped).append(" 个");
             }
             return sb.toString();
+        }
+
+        /** 错误态标题：优先用具体源的原因 */
+        public String toErrorMessage() {
+            if (firstError != null) {
+                return firstError;
+            }
+            return "刷新失败：共 " + failed + " 个订阅源无法访问";
         }
     }
 }
