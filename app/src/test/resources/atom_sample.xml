@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>阮一峰的网络日志</title>
+  <link rel="alternate" type="text/html" href="http://www.ruanyifeng.com/blog/" />
+  <link rel="self" type="application/atom+xml" href="http://www.ruanyifeng.com/blog/atom.xml" />
+  <updated>2026-11-06T02:31:34Z</updated>
+  <subtitle>阮一峰的网络日志</subtitle>
+
+  <entry>
+    <title>科技爱好者周刊（第 418 期）：如果科技停止在 21 世纪初</title>
+    <link rel="alternate" type="text/html" href="http://www.ruanyifeng.com/blog/2026/11/weekly-issue-418.html" />
+    <id>tag:www.ruanyifeng.com,2026:/blog//1.2562</id>
+    <published>2026-11-05T23:43:55Z</published>
+    <updated>2026-11-06T02:31:34Z</updated>
+    <summary>这里记录每周值得分享的科技内容，周五发布。</summary>
+    <author>
+      <name>阮一峰</name>
+    </author>
+    <content type="html"><![CDATA[<p>这里记录每周值得分享的科技内容。</p><p>本期话题：<strong>AI 与就业</strong>。</p>]]></content>
+  </entry>
+</feed>
