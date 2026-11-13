@@ -1,10 +1,10 @@
 package com.mobile.rssreader.ui.articles;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +17,7 @@ import com.mobile.rssreader.R;
 import com.mobile.rssreader.data.entity.Article;
 import com.mobile.rssreader.data.entity.FeedWithUnread;
 import com.mobile.rssreader.databinding.FragmentArticlesBinding;
+import com.mobile.rssreader.ui.detail.ArticleDetailActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -118,9 +119,11 @@ public class ArticlesFragment extends Fragment implements ArticleAdapter.Listene
 
     @Override
     public void onArticleClick(Article article) {
-        // 详情页在 S06 实现；先标记已读，保证阅读状态真实生效
+        // 进入前先标记已读，返回列表时该条已置灰
         viewModel.markRead(article);
-        Toast.makeText(requireContext(), article.title, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(requireContext(), ArticleDetailActivity.class);
+        intent.putExtra(ArticleDetailActivity.EXTRA_ARTICLE_ID, article.id);
+        startActivity(intent);
     }
 
     @Override
