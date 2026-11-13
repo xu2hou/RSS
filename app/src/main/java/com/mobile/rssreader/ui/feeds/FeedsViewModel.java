@@ -23,6 +23,7 @@ public class FeedsViewModel extends AndroidViewModel {
     private final LiveData<List<FeedWithUnread>> feeds;
     private final MutableLiveData<Boolean> refreshing = new MutableLiveData<>(false);
     private final MutableLiveData<Event<String>> message = new MutableLiveData<>();
+    private final MutableLiveData<Event<String>> error = new MutableLiveData<>();
 
     public FeedsViewModel(@NonNull Application application) {
         super(application);
@@ -42,6 +43,11 @@ public class FeedsViewModel extends AndroidViewModel {
         return message;
     }
 
+    /** 刷新整体失败时的一次性错误事件（界面据此决定显示错误态还是 Toast） */
+    public LiveData<Event<String>> getError() {
+        return error;
+    }
+
     /** 下拉刷新：抓取全部订阅源，结果用一次性事件提示 */
     public void refreshAll() {
         refreshing.setValue(true);
@@ -49,13 +55,17 @@ public class FeedsViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(FeedRepository.RefreshSummary data) {
                 refreshing.setValue(false);
-                message.setValue(new Event<>(data.toMessage()));
+                if (data.allFailed()) {
+                    error.setValue(new Event<>(data.toErrorMessage()));
+                } else {
+                    message.setValue(new Event<>(data.toMessage()));
+                }
             }
 
             @Override
-            public void onError(String error) {
+            public void onError(String reason) {
                 refreshing.setValue(false);
-                message.setValue(new Event<>(error));
+                error.setValue(new Event<>(reason));
             }
         });
     }

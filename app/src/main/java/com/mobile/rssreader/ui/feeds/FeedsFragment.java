@@ -14,9 +14,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.mobile.rssreader.R;
 import com.mobile.rssreader.data.entity.Feed;
 import com.mobile.rssreader.data.entity.FeedWithUnread;
+import com.mobile.rssreader.data.net.NetworkErrorMapper;
 import com.mobile.rssreader.databinding.FragmentFeedsBinding;
 
 import java.util.List;
@@ -76,6 +78,26 @@ public class FeedsFragment extends Fragment implements FeedAdapter.Listener {
             String text = event.getContentIfNotHandled();
             if (text != null && binding != null) {
                 Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        viewModel.getError().observe(getViewLifecycleOwner(), event -> {
+            if (event == null) {
+                return;
+            }
+            String text = event.getContentIfNotHandled();
+            if (text == null || binding == null) {
+                return;
+            }
+            // 列表里已经有内容时用 Snackbar 提示并给出「重试」动作，不打断阅读；
+            // 列表为空时铺满错误态，让用户能看到原因并点重试。
+            if (adapter.getItemCount() == 0) {
+                binding.recycler.setVisibility(View.GONE);
+                binding.stateView.showError(NetworkErrorMapper.withSuggestion(text));
+            } else {
+                Snackbar.make(binding.getRoot(), text, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.action_retry, v -> viewModel.refreshAll())
+                        .show();
             }
         });
     }
