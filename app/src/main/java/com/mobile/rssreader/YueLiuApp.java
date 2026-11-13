@@ -2,6 +2,7 @@ package com.mobile.rssreader;
 
 import android.app.Application;
 
+import com.mobile.rssreader.backup.BackupScheduler;
 import com.mobile.rssreader.work.RefreshScheduler;
 
 /**
@@ -14,5 +15,6 @@ public class YueLiuApp extends Application {
     public void onCreate() {
         super.onCreate();
         RefreshScheduler.apply(this);
+        BackupScheduler.apply(this);
     }
 }
