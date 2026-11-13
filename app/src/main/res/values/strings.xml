@@ -43,4 +43,12 @@
     <string name="articles_empty_starred">还没有收藏，点文章右侧星标收藏</string>
     <string name="action_star">收藏</string>
     <string name="article_meta_format">%1$s · %2$s</string>
+
+    <!-- 文章详情 -->
+    <string name="action_share">分享</string>
+    <string name="action_open_browser">在浏览器打开</string>
+    <string name="detail_no_content">这篇文章的源只提供了摘要，完整内容请点右上角「在浏览器打开」。</string>
+    <string name="detail_share_chooser">分享文章</string>
+    <string name="detail_open_failed">没有可用的浏览器</string>
+    <string name="action_starred">取消收藏</string>
 </resources>
