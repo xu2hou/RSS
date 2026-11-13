@@ -164,40 +164,49 @@ public final class FeedRepository {
      */
     public void refreshAll(Callback<RefreshSummary> callback) {
         AppExecutors.get().networkIO().execute(() -> {
-            RefreshSummary summary = new RefreshSummary();
-            long now = System.currentTimeMillis();
-            List<Feed> feeds = feedDao.getAllSync();
-            for (Feed feed : feeds) {
-                if (!feed.enabled) {
-                    summary.skipped++;
-                    continue;
-                }
-                if (!FeedHealth.canFetchNow(feed, now)) {
-                    summary.skipped++;
-                    continue;
-                }
-                try {
-                    RssParser.ParsedFeed parsed = RssFetcher.fetch(feed.url);
-                    List<Article> articles = toEntities(feed.id, parsed.items);
-                    int[] added = new int[1];
-                    database.runInTransaction(() -> {
-                        int before = articleDao.count();
-                        articleDao.insertAll(articles);
-                        added[0] = Math.max(0, articleDao.count() - before);
-                        feedDao.markFetchSuccess(feed.id, System.currentTimeMillis());
-                    });
-                    summary.success++;
-                    summary.newArticles += added[0];
-                } catch (Exception e) {
-                    summary.failed++;
-                    if (summary.firstError == null) {
-                        summary.firstError = feed.title + "：" + NetworkErrorMapper.toUserMessage(e);
-                    }
-                    feedDao.markFetchFailed(feed.id);
-                }
-            }
+            RefreshSummary summary = refreshAllSync();
             AppExecutors.get().main(() -> callback.onSuccess(summary));
         });
+    }
+
+    /**
+     * 同步刷新全部源，供 WorkManager 的 Worker 直接调用
+     * （Worker 的 doWork 本身就在后台线程，不需要再切线程）。
+     */
+    public RefreshSummary refreshAllSync() {
+        RefreshSummary summary = new RefreshSummary();
+        long now = System.currentTimeMillis();
+        List<Feed> feeds = feedDao.getAllSync();
+        for (Feed feed : feeds) {
+            if (!feed.enabled) {
+                summary.skipped++;
+                continue;
+            }
+            if (!FeedHealth.canFetchNow(feed, now)) {
+                summary.skipped++;
+                continue;
+            }
+            try {
+                RssParser.ParsedFeed parsed = RssFetcher.fetch(feed.url);
+                List<Article> articles = toEntities(feed.id, parsed.items);
+                int[] added = new int[1];
+                database.runInTransaction(() -> {
+                    int before = articleDao.count();
+                    articleDao.insertAll(articles);
+                    added[0] = Math.max(0, articleDao.count() - before);
+                    feedDao.markFetchSuccess(feed.id, System.currentTimeMillis());
+                });
+                summary.success++;
+                summary.newArticles += added[0];
+            } catch (Exception e) {
+                summary.failed++;
+                if (summary.firstError == null) {
+                    summary.firstError = feed.title + "：" + NetworkErrorMapper.toUserMessage(e);
+                }
+                feedDao.markFetchFailed(feed.id);
+            }
+        }
+        return summary;
     }
 
     private List<Article> toEntities(long feedId, List<RssParser.ParsedItem> items) {
