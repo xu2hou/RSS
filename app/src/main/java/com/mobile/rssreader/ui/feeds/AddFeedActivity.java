@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.button.MaterialButton;
 import com.mobile.rssreader.R;
 import com.mobile.rssreader.data.SampleFeeds;
+import com.mobile.rssreader.ui.widget.WatermarkOverlay;
 import com.mobile.rssreader.databinding.ActivityAddFeedBinding;
 
 /**
@@ -31,6 +32,7 @@ public class AddFeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAddFeedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        WatermarkOverlay.attach(this);
         viewModel = new ViewModelProvider(this).get(AddFeedViewModel.class);
 
         binding.toolbar.setNavigationOnClickListener(v -> finish());

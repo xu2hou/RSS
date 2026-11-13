@@ -142,6 +142,21 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switch_watermark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/settings_watermark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/settings_watermark_hint"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

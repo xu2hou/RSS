@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.mobile.rssreader.R;
 import com.mobile.rssreader.data.entity.Article;
+import com.mobile.rssreader.ui.widget.WatermarkOverlay;
 import com.mobile.rssreader.databinding.ActivityArticleDetailBinding;
 import com.mobile.rssreader.util.HtmlUtils;
 
@@ -42,6 +43,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityArticleDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        WatermarkOverlay.attach(this);
         applyWindowInsets();
 
         viewModel = new ViewModelProvider(this).get(ArticleDetailViewModel.class);

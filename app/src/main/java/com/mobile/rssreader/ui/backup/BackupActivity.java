@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.mobile.rssreader.R;
+import com.mobile.rssreader.ui.widget.WatermarkOverlay;
 import com.mobile.rssreader.databinding.ActivityBackupBinding;
 
 import java.io.File;
@@ -56,6 +57,7 @@ public class BackupActivity extends AppCompatActivity implements BackupFileAdapt
         super.onCreate(savedInstanceState);
         binding = ActivityBackupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        WatermarkOverlay.attach(this);
         applyWindowInsets();
 
         viewModel = new ViewModelProvider(this).get(BackupViewModel.class);

@@ -73,6 +73,8 @@
     <string name="settings_open_backup">备份与恢复</string>
     <string name="settings_backup_hint">独立可启动的伴生模块，也可以直接从桌面图标进入</string>
     <string name="settings_section_about">关于</string>
+    <string name="settings_watermark">显示演示水印（学号 + 姓名）</string>
+    <string name="settings_watermark_hint">录屏时用于标识作者，平时可关闭</string>
     <string name="settings_about_text">阅流 RSS · 本地优先的 RSS 阅读器\nRSS 2.0 / Atom 双格式解析 · Room 离线缓存 · 推荐排序</string>
     <string name="settings_refreshing">正在刷新…</string>
 

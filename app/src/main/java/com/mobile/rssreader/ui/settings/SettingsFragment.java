@@ -89,6 +89,13 @@ public class SettingsFragment extends Fragment {
         binding.btnOpenBackup.setOnClickListener(v ->
                 startActivity(new Intent(requireContext(), BackupActivity.class)));
 
+        binding.switchWatermark.setChecked(SettingsPreferences.isWatermarkEnabled(context));
+        binding.switchWatermark.setOnCheckedChangeListener((button, checked) -> {
+            SettingsPreferences.setWatermarkEnabled(context, checked);
+            // 水印在 onCreate 时挂载，重建当前页面让它立即生效
+            requireActivity().recreate();
+        });
+
         renderNotifyState();
         renderWorkState();
     }

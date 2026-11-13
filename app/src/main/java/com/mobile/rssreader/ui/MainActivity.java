@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.mobile.rssreader.R;
+import com.mobile.rssreader.ui.widget.WatermarkOverlay;
 import com.mobile.rssreader.databinding.ActivityMainBinding;
 import com.mobile.rssreader.ui.articles.ArticlesFragment;
 import com.mobile.rssreader.ui.feeds.FeedsFragment;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        WatermarkOverlay.attach(this);
         applyWindowInsets();
 
         binding.bottomNav.setOnItemSelectedListener(item -> {

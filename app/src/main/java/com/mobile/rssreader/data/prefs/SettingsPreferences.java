@@ -16,6 +16,8 @@ public final class SettingsPreferences {
     private static final String KEY_NOTIFY_DENIED = "notify_denied";
     /** 伴生模块：每日自动备份 */
     private static final String KEY_AUTO_BACKUP = "auto_backup";
+    /** 演示水印（录屏用，默认开启） */
+    private static final String KEY_WATERMARK = "watermark_on";
 
     private SettingsPreferences() {
     }
@@ -56,5 +58,13 @@ public final class SettingsPreferences {
 
     public static void setAutoBackupEnabled(Context context, boolean enabled) {
         sp(context).edit().putBoolean(KEY_AUTO_BACKUP, enabled).apply();
+    }
+
+    public static boolean isWatermarkEnabled(Context context) {
+        return sp(context).getBoolean(KEY_WATERMARK, true);
+    }
+
+    public static void setWatermarkEnabled(Context context, boolean enabled) {
+        sp(context).edit().putBoolean(KEY_WATERMARK, enabled).apply();
     }
 }
