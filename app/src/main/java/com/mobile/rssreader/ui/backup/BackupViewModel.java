@@ -60,7 +60,6 @@ public class BackupViewModel extends AndroidViewModel {
             backups.postValue(files);
         });
     }
-
     /** 备份到私有目录 */
     public void backupNow() {
         busy.setValue(true);
@@ -74,6 +73,7 @@ public class BackupViewModel extends AndroidViewModel {
             } finally {
                 busy.postValue(false);
                 refreshList();
+                loadSummary();
             }
         });
     }
@@ -113,6 +113,7 @@ public class BackupViewModel extends AndroidViewModel {
             } finally {
                 busy.postValue(false);
                 refreshList();
+                loadSummary();
             }
         });
     }
@@ -129,6 +130,7 @@ public class BackupViewModel extends AndroidViewModel {
             } finally {
                 busy.postValue(false);
                 refreshList();
+                loadSummary();
             }
         });
     }
